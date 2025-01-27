@@ -72,8 +72,29 @@ export const loginUser = createAsyncThunk(
       
       return response.data;
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Login failed';
-      return rejectWithValue(message);
+      // More specific error handling
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        switch (error.response.status) {
+          case 401:
+            return rejectWithValue('Invalid email or password. Please try again.');
+          case 404:
+            return rejectWithValue('User not found. Please check your credentials.');
+          case 403:
+            return rejectWithValue('Access denied. Please contact support.');
+          case 500:
+            return rejectWithValue('Server error. Please try again later.');
+          default:
+            return rejectWithValue(error.response.data.message || 'Login failed');
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        return rejectWithValue('No response from server. Please check your internet connection.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        return rejectWithValue('An unexpected error occurred. Please try again.');
+      }
     }
   }
 );
@@ -138,7 +159,9 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.user = null;
+        state.token = null;
+        state.error = action.payload as string || 'Login failed';
       })
       // Register
       .addCase(registerUser.pending, (state) => {
