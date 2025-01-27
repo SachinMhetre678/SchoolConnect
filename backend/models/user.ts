@@ -9,6 +9,13 @@ interface IUser extends Document {
     emergencyContact?: string;
     address: string;
     avatar: Buffer;
+    
+    // New profile-related fields
+    grade?: string;
+    guardianName?: string;
+    bloodGroup?: string;
+    studentId?: string;
+    joinDate?: Date;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -48,6 +55,28 @@ const userSchema = new mongoose.Schema<IUser>({
         type: 'Buffer',
         public_id: String,
         url: String, 
+    },
+    grade: {
+        type: String,
+        required: false
+    },
+    guardianName: {
+        type: String,
+        required: false
+    },
+    bloodGroup: {
+        type: String,
+        required: false
+    },
+    studentId: {
+        type: String,
+        unique: true,
+        required: false
+    },
+    joinDate: {
+        type: Date,
+        required: false,
+        default: Date.now
     }
 });
 

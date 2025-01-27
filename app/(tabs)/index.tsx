@@ -17,8 +17,10 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { MaterialIcons, Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/redux/authSlice";
+import { RootState } from '@/types';
+import { UnknownAction } from '@reduxjs/toolkit';
 
 const { width } = Dimensions.get("window");
 
@@ -120,26 +122,26 @@ interface Profile {
 
 export default function SchoolDashboard() {
     const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.auth.user);
     const colorScheme = useColorScheme();
     const COLORS = colorScheme === "dark" ? getDarkColors() : getLightColors();
 
     const handleLogout = () => {
-        dispatch(logoutUser());
-        // You can also add navigation to redirect after logout if needed
+        dispatch(logoutUser() as unknown as UnknownAction);
     };
 
     const [isProfileVisible, setIsProfileVisible] = useState(false);
-    const [profile] = useState<Profile>({
-        name: "Vishwajeet Singh",
-        grade: "8th Standard",
-        age: 13,
-        guardianName: "Rajesh Singh",
-        contactNumber: "+91 98765 43210",
-        address: "123 Education Lane, School District",
-        bloodGroup: "B+",
-        emergencyContact: "+91 98765 43211",
-        studentId: "STU2024001",
-        joinDate: "January 2024",
+    const [profile, setProfile] = useState<Profile>({
+        name: user?.name || "N/A",
+        grade: user?.grade || "N/A",
+        age: user?.age || 0,
+        guardianName: user?.guardianName || "N/A",
+        contactNumber: user?.phone || "N/A",
+        address: user?.address || "N/A",
+        bloodGroup: user?.bloodGroup || "N/A",
+        emergencyContact: user?.emergencyContact || "N/A",
+        studentId: user?.studentId || "N/A",
+        joinDate: user?.joinDate || "N/A"
     });
 
     const [currentTime, setCurrentTime] = useState(new Date());

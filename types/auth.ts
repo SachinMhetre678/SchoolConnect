@@ -5,6 +5,17 @@ export interface AuthState {
       name: string; 
       email: string; 
       role: string;
+      
+      // Optional profile fields
+      grade?: string;
+      age?: number;
+      guardianName?: string;
+      phone?: string;
+      address?: string;
+      bloodGroup?: string;
+      emergencyContact?: string;
+      studentId?: string;
+      joinDate?: string;
     };
     token: string | null;
     error: string | null;

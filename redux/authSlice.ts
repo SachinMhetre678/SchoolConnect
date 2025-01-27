@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AuthState } from '@/types/auth';
 import * as SecureStore from 'expo-secure-store';
+import { RegisterFormData } from '@/types';
 
 const API_BASE_URL = 'https://school-connect-server.up.railway.app/api/auth';
 
@@ -79,7 +80,7 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
-  async (data: Omit<RegisterFormData, 'confirmPassword'>, { rejectWithValue }) => {
+  async (data: RegisterFormData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/register`, data);
       
