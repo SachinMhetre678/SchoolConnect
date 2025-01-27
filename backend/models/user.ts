@@ -8,21 +8,16 @@ interface IUser extends Document {
     phone: string;
     emergencyContact?: string;
     address: string;
+    username: string;
+    email: string;
+    password: string;
     avatar: Buffer;
-    
-    // New profile-related fields
-    grade?: string;
-    guardianName?: string;
-    bloodGroup?: string;
-    studentId?: string;
-    joinDate?: Date;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
     name: {
         type: String,
         required: [true, "Please enter your name"],
-        unique: true,
     },
     age: {
         type: Number,
@@ -30,8 +25,7 @@ const userSchema = new mongoose.Schema<IUser>({
     },
     role: {
         type: String,
-        enum: ["Student", "Teacher", "Intern"],
-        required: true,
+        required: [true, "Please specify your role"],
     },
     batch: {
         type: String,
@@ -51,32 +45,24 @@ const userSchema = new mongoose.Schema<IUser>({
         type: String,
         required: [true, "Please enter your address"],
     },
-    avatar : {
+    username: {
+        type: String,
+        required: [true, "Please enter your username"],
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: [true, "Please enter your email"],
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: [true, "Please enter your password"],
+    },
+    avatar: {
         type: 'Buffer',
         public_id: String,
         url: String, 
-    },
-    grade: {
-        type: String,
-        required: false
-    },
-    guardianName: {
-        type: String,
-        required: false
-    },
-    bloodGroup: {
-        type: String,
-        required: false
-    },
-    studentId: {
-        type: String,
-        unique: true,
-        required: false
-    },
-    joinDate: {
-        type: Date,
-        required: false,
-        default: Date.now
     }
 });
 

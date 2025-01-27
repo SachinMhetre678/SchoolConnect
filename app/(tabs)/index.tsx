@@ -109,15 +109,14 @@ const getDarkColors = () => ({
 
 interface Profile {
     name: string;
-    grade: string;
     age: number;
-    guardianName: string;
-    contactNumber: string;
-    address: string;
-    bloodGroup: string;
+    role: string;
+    batch: string;
+    phone: string;
     emergencyContact: string;
-    studentId: string;
-    joinDate: string;
+    address: string;
+    username: string;
+    email: string;
 }
 
 export default function SchoolDashboard() {
@@ -133,15 +132,14 @@ export default function SchoolDashboard() {
     const [isProfileVisible, setIsProfileVisible] = useState(false);
     const [profile, setProfile] = useState<Profile>({
         name: user?.name || "N/A",
-        grade: user?.grade || "N/A",
         age: user?.age || 0,
-        guardianName: user?.guardianName || "N/A",
-        contactNumber: user?.phone || "N/A",
-        address: user?.address || "N/A",
-        bloodGroup: user?.bloodGroup || "N/A",
+        role: user?.role || "N/A",
+        batch: user?.batch || "N/A",
+        phone: user?.phone || "N/A",
         emergencyContact: user?.emergencyContact || "N/A",
-        studentId: user?.studentId || "N/A",
-        joinDate: user?.joinDate || "N/A"
+        address: user?.address || "N/A",
+        username: user?.username || "N/A",
+        email: user?.email || "N/A"
     });
 
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -282,19 +280,19 @@ export default function SchoolDashboard() {
                             { color: COLORS.textLight },
                         ]}
                     >
-                        {profile.grade}
+                        {profile.role}
                     </ThemedText>
 
                     <ScrollView style={styles.profileDetails}>
                         <ProfileInfoItem
                             icon="badge"
-                            label="Student ID"
-                            value={profile.studentId}
+                            label="Username"
+                            value={profile.username}
                         />
                         <ProfileInfoItem
                             icon="calendar-today"
-                            label="Joined"
-                            value={profile.joinDate}
+                            label="Batch"
+                            value={profile.batch}
                         />
                         <ProfileInfoItem
                             icon="person"
@@ -302,14 +300,9 @@ export default function SchoolDashboard() {
                             value={`${profile.age} years`}
                         />
                         <ProfileInfoItem
-                            icon="family-restroom"
-                            label="Guardian"
-                            value={profile.guardianName}
-                        />
-                        <ProfileInfoItem
                             icon="phone"
                             label="Contact"
-                            value={profile.contactNumber}
+                            value={profile.phone}
                         />
                         <ProfileInfoItem
                             icon="location-on"
@@ -317,14 +310,14 @@ export default function SchoolDashboard() {
                             value={profile.address}
                         />
                         <ProfileInfoItem
-                            icon="water-drop"
-                            label="Blood Group"
-                            value={profile.bloodGroup}
-                        />
-                        <ProfileInfoItem
                             icon="emergency"
                             label="Emergency Contact"
                             value={profile.emergencyContact}
+                        />
+                        <ProfileInfoItem
+                            icon="email"
+                            label="Email"
+                            value={profile.email}
                         />
                     </ScrollView>
 
@@ -581,7 +574,7 @@ export default function SchoolDashboard() {
                     <ThemedText
                         style={[styles.welcomeText, { color: COLORS.text }]}
                     >
-                        Hello, Vishwajeet!
+                        Hello, {profile.name}!
                     </ThemedText>
                     <ThemedText
                         style={[styles.subtitle, { color: COLORS.textLight }]}

@@ -10,17 +10,13 @@ export type RootState = {
 // Registration form data type
 export interface RegisterFormData {
   name: string;
+  age: number;
+  role: string;
+  batch?: string;
+  phone: string;
+  emergencyContact?: string;
+  address: string;
+  username: string;
   email: string;
   password: string;
-  phone: string;
-  role?: string;
-  
-  // Optional profile fields
-  grade?: string;
-  guardianName?: string;
-  bloodGroup?: string;
-  studentId?: string;
-  address?: string;
-  age?: number;
-  emergencyContact?: string;
 }
