@@ -1,4 +1,4 @@
-import AgendaScreen from "@/components/calendar/AgendaCalendar";
+import AgendaScreen from "@/components/calendar/agendaCalendar";
 import React from "react";
 
 const calendar = () => {

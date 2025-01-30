@@ -63,6 +63,26 @@ export default function TabLayout() {
           ),
         }}
       />
+      
+      <Tabs.Screen
+        name="message-teacher"
+        options={{
+          title: 'Message Teacher',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'chatbubble' : 'chatbubble-outline'} color={color} />
+          ),
+        }}
+      />
+      
+      <Tabs.Screen
+        name="view-homework"
+        options={{
+          title: 'Homework',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -1,10 +1,17 @@
 // types/auth.ts
 export interface AuthState {
     user: null | { 
-      id: string; 
-      name: string; 
-      email: string; 
+      name: string;
+      age: number;
       role: string;
+      batch?: string;
+      phone: string;
+      emergencyContact?: string;
+      address: string;
+      username: string;
+      email: string;
+      password: string;
+      __v: number;
     };
     token: string | null;
     error: string | null;

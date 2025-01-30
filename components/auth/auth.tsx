@@ -43,29 +43,37 @@ function Auth() {
 
   useEffect(() => {
     if (error) {
-      Alert.alert('Error', error);
-      dispatch(clearError());
+      Alert.alert(
+        isRegister ? 'Registration Error' : 'Login Error',
+        error,
+        [
+          {
+            text: 'OK',
+            onPress: () => dispatch(clearError())
+          }
+        ]
+      );
     }
   }, [error]);
 
   const validateForm = () => {
     if (isRegister) {
       if (formData.password !== formData.confirmPassword) {
-        Alert.alert('Error', 'Passwords do not match');
+        Alert.alert('Validation Error', 'Passwords do not match. Please check and try again.');
         return false;
       }
       if (!formData.name || !formData.email || !formData.password || !formData.age || 
           !formData.phone || !formData.address || !formData.username) {
-        Alert.alert('Error', 'Please fill in all required fields');
+        Alert.alert('Validation Error', 'Please fill in all required fields to continue.');
         return false;
       }
       if (formData.role === 'Student' && !formData.batch) {
-        Alert.alert('Error', 'Please select a batch');
+        Alert.alert('Validation Error', 'Please select your preferred batch timing.');
         return false;
       }
     } else {
       if (!formData.email || !formData.password) {
-        Alert.alert('Error', 'Please enter email and password');
+        Alert.alert('Validation Error', 'Please enter both email and password to login.');
         return false;
       }
     }
@@ -75,21 +83,37 @@ function Auth() {
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
-    if (isRegister) {
-      const registerData = { ...formData };
-      delete registerData.confirmPassword;
-      const result = await dispatch(registerUser(registerData));
-      if (registerUser.fulfilled.match(result)) {
-        Alert.alert('Success', 'Registration successful!');
+    try {
+      if (isRegister) {
+        // Prepare registration data with type conversion
+        const registerData: RegisterFormData = {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          phone: formData.phone,
+          age: parseInt(formData.age), // Convert age to number
+          role: formData.role,
+          batch: formData.batch,
+          emergencyContact: formData.emergencyContact,
+          address: formData.address,
+          username: formData.username
+        };
+
+        const result = await dispatch(registerUser(registerData));
+        if (registerUser.fulfilled.match(result)) {
+          Alert.alert('Success', 'Your account has been created successfully!');
+        }
+      } else {
+        const result = await dispatch(loginUser({
+          email: formData.email,
+          password: formData.password,
+        }));
+        if (loginUser.fulfilled.match(result)) {
+          console.log('Login successful');
+        }
       }
-    } else {
-      const result = await dispatch(loginUser({
-        email: formData.email,
-        password: formData.password,
-      }));
-      if (loginUser.fulfilled.match(result)) {
-        Alert.alert('Success', 'Login successful!');
-      }
+    } catch (err) {
+      console.error('Authentication error:', err);
     }
   };
 
@@ -112,6 +136,12 @@ function Auth() {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.formContainer}>
+            {error && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            )}
+
             <View style={styles.header}>
               <Text style={styles.title}>
                 {isRegister ? 'Create Account' : 'Welcome Back'}
@@ -357,6 +387,20 @@ const styles = StyleSheet.create({
   toggleText: {
     color: Colors.light.primary,
     fontSize: 14,
+  },
+  errorContainer: {
+    backgroundColor: '#FFE5E5',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#FF3B30',
+    marginTop: 10,
+  },
+  errorText: {
+    color: '#FF3B30',
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
 
