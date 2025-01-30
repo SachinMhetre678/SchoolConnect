@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "School-Connect",
-    "slug": "School-Connect",
+    "name": "schoolconnect",
+    "slug": "schoolconnect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -41,7 +41,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "f70eeeea-c25d-41ca-be56-f49a4fc7fae1"
+        "projectId": "f7f95826-4827-4dc7-a93c-50355fa0786d"
       }
     }
   }
