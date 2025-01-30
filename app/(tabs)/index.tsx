@@ -21,6 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/redux/authSlice";
 import { RootState } from '@/types';
 import { UnknownAction } from '@reduxjs/toolkit';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@/types';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const { width } = Dimensions.get("window");
 
@@ -124,6 +127,15 @@ export default function SchoolDashboard() {
     const user = useSelector((state: RootState) => state.auth.user);
     const colorScheme = useColorScheme();
     const COLORS = colorScheme === "dark" ? getDarkColors() : getLightColors();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+    const handleMessageTeacher = () => {
+        navigation.navigate('message-teacher' as never);
+    };
+
+    const handleViewHomework = () => {
+        navigation.navigate('view-homework' as never);
+    };
 
     const handleLogout = () => {
         dispatch(logoutUser() as unknown as UnknownAction);
@@ -638,7 +650,10 @@ export default function SchoolDashboard() {
 
                 {/* Quick Actions */}
                 <ThemedView style={styles.quickActions}>
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity 
+                        style={styles.actionButton} 
+                        onPress={handleMessageTeacher}
+                    >
                         <LinearGradient
                             colors={[COLORS.accent1, COLORS.accent3]}
                             style={styles.actionGradient}
@@ -658,7 +673,10 @@ export default function SchoolDashboard() {
                             </ThemedText>
                         </LinearGradient>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity 
+                        style={styles.actionButton} 
+                        onPress={handleViewHomework}
+                    >
                         <LinearGradient
                             colors={[COLORS.accent2, COLORS.accent1]}
                             style={styles.actionGradient}

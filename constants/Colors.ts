@@ -28,5 +28,11 @@ export const Colors = {
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    textDim: '#9BA1A6',
+    primary: '#3B82F6',
+    error: '#EF4444',
+    border: '#27272A',
+    inputBg: '#27272A',
+    success: '#10B981'
   },
 };

@@ -7,6 +7,13 @@ export type RootState = {
   // Add other slice states here if you have them
 };
 
+// Navigation type definition
+export type RootStackParamList = {
+  index: undefined;
+  'message-teacher': undefined;
+  'view-homework': undefined;
+};
+
 // Registration form data type
 export interface RegisterFormData {
   name: string;
