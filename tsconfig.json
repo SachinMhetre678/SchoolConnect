@@ -1,17 +1,25 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": ["expo/tsconfig.base"],
   "compilerOptions": {
     "strict": true,
     "paths": {
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "types": [
+      "babel__generator",
+      "babel__traverse", 
+      "json-schema", 
+      "stack-utils", 
+      "tough-cookie"
+    ]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "backend/models/notice.ts"  ]
+    "expo-env.d.ts",
+    "backend/models/notice.ts"
+  ]
 }

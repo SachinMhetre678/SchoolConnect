@@ -4,7 +4,5 @@
   "dev": true,
   "minify": false,
   "urlRandomness": null,
-  "https": false,
-  "scheme": "exp+school-connect",
-  "devClient": false
+  "https": false
 }
