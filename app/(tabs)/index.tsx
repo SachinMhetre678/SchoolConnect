@@ -827,7 +827,7 @@ export default function SchoolDashboard() {
     
                     <TouchableOpacity 
                         style={[styles.supportCard, { backgroundColor: COLORS.surface }]}
-                        onPress={() => router.push('/support' as Href)}  // Use full path and type assertion
+                        onPress={() => router.push('/support')}  // Use full path and type assertion
                         >
                         <ThemedView style={styles.supportContent}>
                             <MaterialIcons

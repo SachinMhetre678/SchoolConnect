@@ -56,7 +56,7 @@ const SupportScreen = () => {
       gradient: ['#2196F3', '#1565C0'],
       onPress: () => {
         handleOptionPress(1);
-        Linking.openURL('mailto:sachinmhetre678@gmail.com');
+        Linking.openURL('mailto:support@schoolconnect.com');
       }
     },
     {
