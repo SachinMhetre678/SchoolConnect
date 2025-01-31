@@ -139,6 +139,13 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
+          <Stack.Screen 
+            name="support" 
+            options={{ 
+              headerTitle: 'School Support',
+              headerBackTitle: 'Back'
+            }} 
+          />
         </Stack>
       </ThemeProvider>
     </Provider>

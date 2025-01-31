@@ -23,6 +23,8 @@ import { RootState } from '@/types';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/types';
+import { useRouter } from 'expo-router';
+import { Href } from 'expo-router/build/types';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const { width } = Dimensions.get("window");
@@ -152,6 +154,8 @@ export default function SchoolDashboard() {
     const COLORS = colorScheme === "dark" ? getDarkColors() : getLightColors();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [refreshing, setRefreshing] = useState(false);
+    const router = useRouter();
+    
 
     const handleMessageTeacher = () => {
         navigation.navigate('message-teacher' as never);
@@ -177,7 +181,7 @@ export default function SchoolDashboard() {
         username: user?.username || "N/A",
         email: user?.email || "N/A",
         subjects: ["Mathematics", "Science", "English", "History"],
-        achievements: ["Perfect Attendance - Jan 2025", "Student of the Month - Dec 2024"],
+        achievements: ["Perfect Attendance - Jan 2024", "Student of the Month - Dec 2023"],
         attendance: 95
     });
 
@@ -821,7 +825,10 @@ export default function SchoolDashboard() {
                         </TouchableOpacity>
                     </ThemedView>
     
-                    <TouchableOpacity style={[styles.supportCard, { backgroundColor: COLORS.surface }]}>
+                    <TouchableOpacity 
+                        style={[styles.supportCard, { backgroundColor: COLORS.surface }]}
+                        onPress={() => router.push('/support' as Href)}  // Use full path and type assertion
+                        >
                         <ThemedView style={styles.supportContent}>
                             <MaterialIcons
                                 name="help"
